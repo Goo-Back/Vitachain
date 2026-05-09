@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for VitaChain */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent;
+  }
+}
+
+/* Moroccan optimization for 3G connections */
+@layer utilities {
+  .optimize-3g {
+    @apply transition-none transform-none;
+  }
+  
+  .fast-loading {
+    @apply animate-pulse;
+  }
+}

@@ -1,0 +1,165 @@
+# VitaChain RBAC Permissions Configuration
+# Defines role-based permissions and access control rules
+# This file allows dynamic permission management without code changes
+
+# Permission categories
+categories:
+  telemetry:
+    name: "Télémétrie (KATARA)"
+    description: "Accès aux données des capteurs IoT"
+    permissions:
+      - read:own_telemetry
+      - write:own_devices
+      - read:own_alerts
+      - write:own_alerts
+  
+  marketplace:
+    name: "Marketplace (FARMARKET)"
+    description: "Accès au marché des produits agricoles"
+    permissions:
+      - read:own_listings
+      - write:own_listings
+      - read:marketplace
+      - write:own_orders
+      - read:own_orders
+  
+  restaurant:
+    name: "Restaurant (SECONDSERVE)"
+    description: "Gestion des repas et réservations"
+    permissions:
+      - read:own_meals
+      - write:own_meals
+      - read:own_reservations
+      - write:own_reservations
+      - read:marketplace
+  
+  user_management:
+    name: "Gestion des utilisateurs"
+    description: "Administration des comptes utilisateurs"
+    permissions:
+      - read:users
+      - write:users
+      - read:profiles
+      - write:profiles
+      - write:reset_codes
+      - write:unblock_accounts
+  
+  system_management:
+    name: "Administration système"
+    description: "Accès aux fonctions système"
+    permissions:
+      - read:system
+      - write:system
+      - read:audit_logs
+      - write:audit_logs
+
+# Role definitions with their permission sets
+roles:
+  FARMER:
+    name: "Agriculteur"
+    description: "Producteur agricole utilisant KATARA et FARMARKET"
+    inherits_from: []
+    permissions:
+      - read:own_telemetry
+      - write:own_devices
+      - read:own_alerts
+      - write:own_alerts
+      - read:own_listings
+      - write:own_listings
+      - read:marketplace
+      - write:own_orders
+      - read:own_orders
+      - read:profiles
+      - write:profiles
+  
+  RESTAURANT:
+    name: "Restaurant"
+    description: "Établissement de restauration"
+    inherits_from: []
+    permissions:
+      - read:own_meals
+      - write:own_meals
+      - read:own_reservations
+      - write:own_reservations
+      - read:marketplace
+      - read:profiles
+      - write:profiles
+  
+  CITIZEN:
+    name: "Citoyen"
+    description: "Consommateur des services VitaChain"
+    inherits_from: []
+    permissions:
+      - read:marketplace
+      - write:own_reservations
+      - read:own_reservations
+      - read:profiles
+      - write:profiles
+  
+  SUPPORT:
+    name: "Support"
+    description: "Agent de support client"
+    inherits_from: []
+    permissions:
+      - read:users
+      - read:profiles
+      - write:reset_codes
+      - write:unblock_accounts
+      - read:audit_logs
+  
+  ADMIN:
+    name: "Administrateur"
+    description: "Administrateur système"
+    inherits_from: []
+    permissions:
+      - "*"  # All permissions
+
+# Permission hierarchy and inheritance
+hierarchy:
+  ADMIN:
+    can_manage: [SUPPORT, FARMER, RESTAURANT, CITIZEN]
+    can_impersonate: true
+  
+  SUPPORT:
+    can_manage: [FARMER, RESTAURANT, CITIZEN]
+    can_impersonate: false
+  
+  # Regular users cannot manage others
+  FARMER:
+    can_manage: []
+    can_impersonate: false
+  
+  RESTAURANT:
+    can_manage: []
+    can_impersonate: false
+  
+  CITIZEN:
+    can_manage: []
+    can_impersonate: false
+
+# Security settings
+security:
+  rate_limiting:
+    permission_checks: 100  # per minute per user
+    data_access: 1000  # per minute per user
+  
+  session_management:
+    max_sessions_per_user: 5
+    session_timeout: 3600  # 1 hour in seconds
+  
+  audit_retention:
+    days: 90  # Keep audit logs for 90 days
+  
+  password_policy:
+    min_length: 8
+    require_special_chars: true
+    require_numbers: true
+    require_uppercase: true
+
+# Feature flags
+features:
+  rls_policies: true
+  audit_logging: true
+  rate_limiting: true
+  role_hierarchy: true
+  data_ownership: true
