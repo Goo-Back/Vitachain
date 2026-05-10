@@ -157,8 +157,8 @@ def check_login_rate_limit(ip: str, email: str) -> bool:
     
     return True
 
-@router.post("/register", response_model=UserRegistrationResponse)
-async def register_user(
+@router.post("/register-disabled", response_model=UserRegistrationResponse)
+async def register_user_disabled(
     request: UserRegistrationRequest,
     http_request: Request,
     supabase: Client = Depends(get_supabase_client)
@@ -491,8 +491,8 @@ async def resend_verification_email(
             }
         )
 
-@router.post("/login", response_model=UserLoginResponse)
-async def login_user(
+@router.post("/login-disabled", response_model=UserLoginResponse)
+async def login_user_disabled(
     request: UserLoginRequest,
     http_request: Request,
     supabase: Client = Depends(get_supabase_client)

@@ -9,7 +9,7 @@ from contextlib import asynccontextmanager
 from app.core.config import get_settings
 from app.core.logging import get_logger
 from app.core.database import init_database_optimizer
-from app.api.routes import auth, health, katara, farmarket, secondserve, profiles, admin, admin_blocking, devices, notifications, telemetry
+from app.api.routes import auth, auth_working, health, katara, farmarket, secondserve, profiles, admin, admin_blocking, devices, notifications, telemetry
 
 logger = get_logger(__name__)
 settings = get_settings()
@@ -61,6 +61,12 @@ app.add_middleware(
         settings.frontend_url,
         "http://localhost:3000",  # Development
         "http://127.0.0.1:3000",  # Development
+        "http://localhost:3001",  # Development
+        "http://127.0.0.1:3001",  # Development
+        "http://localhost:3002",  # Development
+        "http://127.0.0.1:3002",  # Development
+        "http://localhost:3003",  # Development
+        "http://127.0.0.1:3003",  # Development
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
@@ -69,7 +75,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(health.router, tags=["health"])
-app.include_router(auth.router, tags=["authentication"])
+app.include_router(auth_working.router, tags=["authentication"])
 app.include_router(profiles.router, tags=["profiles"])
 
 # Import and include security router

@@ -149,8 +149,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: data.user });
 
-      // Redirect to appropriate dashboard
+      // Redirect to appropriate dashboard based on role
       const dashboardRoute = getDashboardRoute(data.user.role);
+      console.log(`🎭 Redirection vers ${dashboardRoute} pour le rôle ${data.user.role}`);
       window.location.href = dashboardRoute;
 
     } catch (error) {

@@ -510,28 +510,22 @@ def get_supabase_client(service_role: bool = False) -> Client:
             service_key = getattr(settings, 'supabase_service_role_key', settings.supabase_anon_key)
             if not service_key:
                 raise ValueError("Service role key is required for service_role client")
-            # Try creating client with explicit kwargs to avoid proxy issue
+            # Try creating client without proxy parameter
             try:
-                return create_client(
-                    supabase_url=settings.supabase_url,
-                    supabase_key=service_key
-                )
-            except TypeError:
-                # Fallback for different versions
                 return create_client(settings.supabase_url, service_key)
+            except Exception as e:
+                logger.warning(f"Failed to create Supabase client: {e}")
+                return MockSupabaseClient()
         else:
             anon_key = getattr(settings, 'supabase_anon_key', None)
             if not anon_key:
                 raise ValueError("Anonymous key is required for public client")
-            # Try creating client with explicit kwargs to avoid proxy issue
+            # Try creating client without proxy parameter
             try:
-                return create_client(
-                    supabase_url=settings.supabase_url,
-                    supabase_key=anon_key
-                )
-            except TypeError:
-                # Fallback for different versions
                 return create_client(settings.supabase_url, anon_key)
+            except Exception as e:
+                logger.warning(f"Failed to create Supabase client: {e}")
+                return MockSupabaseClient()
     except Exception as e:
         logger.warning(f"Failed to create Supabase client: {e}")
         return MockSupabaseClient()

@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION create_user_profile(
     role user_role DEFAULT 'citizen'
 )
 RETURNS UUID AS $$
-DECLARE
+DECLAREcd 
     profile_id UUID;
 BEGIN
     INSERT INTO user_profiles (user_id, first_name, last_name, phone, role)
