@@ -128,7 +128,7 @@ export default function LandingPage() {
             {/* CTA Button */}
             <div className="hidden md:flex items-center space-x-4">
               <Link
-                href="/login"
+                href="/auth/login"
                 className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
               >
                 Se connecter

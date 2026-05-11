@@ -73,7 +73,7 @@ export default function ConsumerSignup() {
             Découvrez les meilleurs produits locaux dès maintenant!
           </p>
           <Link
-            href="/login"
+            href="/auth/login"
             className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             <span>Commencer mes achats</span>

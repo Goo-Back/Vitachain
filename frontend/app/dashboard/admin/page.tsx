@@ -4,7 +4,17 @@ import { useState, useEffect } from 'react';
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
-  const [stats, setStats] = useState({});
+  const [stats, setStats] = useState({
+    total_users: 0,
+    active_users: 0,
+    farmers: 0,
+    restaurants: 0,
+    citizens: 0,
+    total_products: 0,
+    total_orders: 0,
+    system_uptime: "0%",
+    storage_used: "0%"
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

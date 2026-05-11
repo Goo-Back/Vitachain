@@ -181,7 +181,7 @@ export default function RestaurantSignup() {
             Vous allez recevoir un email de confirmation.
           </p>
           <Link
-            href="/login"
+            href="/auth/login"
             className="inline-flex items-center space-x-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors"
           >
             <span>Se connecter</span>

@@ -207,7 +207,7 @@ export default function B2CMarketplace() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link href="/login" className="text-gray-700 hover:text-gray-900 font-medium">
+              <Link href="/auth/login" className="text-gray-700 hover:text-gray-900 font-medium">
                 Se connecter
               </Link>
               <Link
